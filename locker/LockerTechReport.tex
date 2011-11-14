@@ -78,18 +78,29 @@ The data security befits are not only a matter of authentication, personal conta
 \section{Implementation}
 
 \subsection{Architecture}
-The Locker Project\footnote{More information available at \url{http://lockerproject.org/}} aims to construct a personal container suitable for hosting on a users general use computer, as well as adapting to a cloud based platform or a dedicated machine hosted personally. It is written in Javascript on the Node.js\footnote{More information available at \url{http://nodejs.org/}} platform on the backend, and standard HTML and Javascript on the web-based user interface. 
+The Locker Project\footnote{More information available at \url{http://lockerproject.org/}} aims to construct a personal container suitable for hosting on a users general use computer, as well as adapting to a cloud based platform or a dedicated machine hosted personally. It is written in Javascript on the Node.js\footnote{More information available at \url{http://nodejs.org/}} platform on the backend, standard HTML and Javascript on the web-based user interface, and uses a MongoDB\footnote{More information available at \url{http://www.mongodb.org/}} database for data storage.
 
+\begin{figure}[h]
+  \begin{center}
+    \includegraphics[scale=0.4]{LockerDia.png}
+  \end{center}
+  \caption{Architecture Of Locker Platform.}
+  \label{img-lockerDia}
+\end{figure}
+
+As figure \ref{img-lockerDia} explains, the Locker platform is made up from 4 main components. Connectors are responsible for connecting to and downloading data from endpoints such as Flickr or Facebook, and presenting this data to the Locker Core. Core is the central Locker process that fires events such as updating the personal data stored in the Locker, or handling data search queries. Core can start and end connector and app processes which intercommunicate using JSON, and is also responsible for placing and retrieving data in the database. It also provides a query API to the stored data, which the apps can use to retrieve and display data to the user.
 %what locker is - what its coded in and who is working on it.
 %basic overall idea of how the individual bits work - web driven, locker core, collections, connectors, apps.
 
+
+\newpage
 \subsection{Infrastructure}
 Our deployment infrastructure involves multiple instances of the locker platform, installed on multiple virtual machines running a Linux OS with a secure proxy frontend. The locker codebase supports only single users with no authentication, so each instance is isolated within it's own virtual machine. A central Nginx\footnote{More information available at \url{http://nginx.org/}} server handles SSL encryption, authentication and acts as a proxy to direct to the correct instance based on the hostname requested internally to the host machine.
 
 The deployment is hosted by the university cloud computing service, as an example of an institution hosting secure personal data storage, in return for access to said data in an open, and transparent way, identifying to the user exactly which data will be used, and for what purpose.
 %Multiple lockers in VMs with a Nginx secure frontend. Hosted by the uni, for employees,
 
-\newpage
+
 \subsection{Advantages}
 
 
